@@ -1,0 +1,231 @@
+<style>
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 3px;
+	background-color: #fff;
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+	background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 3px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+	background-color: #f08080;
+}
+
+div {
+	background: transparent;
+}
+
+.div {
+	font-family: 'Calibri';
+}
+
+.capsule {
+	margin-left: 30%;
+	margin-right: 30%;
+	margin-top: 5%;
+	min-width: 35%;
+	color: #fff;	
+}
+
+.heading {
+	font-family: 'Calibri';
+	margin-top: 10px;
+	margin-left: 32.5%;
+	color: #f08080;
+}
+
+.searchBar {
+	border: 1px solid #000;
+	border-radius: 8px;
+	margin-left: 11%;
+	min-width: 60%;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid #888;
+	border-top: 1px solid #888;
+	background: transparent;
+	color: #fff;
+	font-size: 16px;
+}
+
+.arrow {
+	position: relative;
+	margin-top: 4px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.mainBody {
+	min-width: 180px;
+	max-width: 450px;
+	margin-top: 60px;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-bottom: 30px;
+	max-height: 253px;
+	overflow-y: scroll;
+	outline: none;
+	border-top: 1px solid #008080;
+	border-bottom: 1px solid #008080;
+}
+
+.list {
+	border-bottom: 1px solid #008080;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.songName {
+	display: inline-block;
+	font-size: 18px;
+	min-width: 80%;
+	max-width: 80%;
+}
+
+.songRating {
+	display: inline-block;
+	font-size: 15px;
+	min-width: 10%;
+	max-width: 10%;
+}
+
+.add {
+	margin-top: 9%;
+	margin-bottom: 15px;
+	margin-left: 33%;
+}
+
+.addNew {
+	background: transparent;
+	color: #f08080;
+	transition: 0.7s background;
+}
+
+.addNew:hover, .addNew:active {
+	background: #f08080;
+	color: #fff;
+}
+
+</style>
+
+<div class="div" ng-controller="homeCtrl">
+	
+	<!-- main container of the application -->
+	<div class="capsule">
+	
+		<!-- heading -->
+		<h2 class="heading"> Music Tracks </h2>
+	
+		<!-- search bar -->
+		<div class="search col-md-10">
+			<div style="display:inline-block" class="col-sm-11">
+				<input id="searchBar" onkeypress="find()" type="text" class="form-control searchBar" ng-model="searchString" placeholder="Search Title" />
+			</div>
+			<div style="display:inline-block" class="arrow" ng-click="search()">
+				<i class="material-icons">arrow_forward</i>
+			</div>
+		</div>
+		
+		<!-- list of songs -->
+		<div class="mainBody">
+			<div class="list" ng-repeat="s in songs track by $index">
+			
+				<div class="songName">
+					<div style="padding-right: 15px; display: inline-block; cursor: pointer" 
+						data-toggle="modal" data-target="#edit" ng-click="modalData(s, $parent.$index)">
+						{{s.title | capitalize}}</div> [
+					<div style="display: inline-block; color: #f08080"  
+						ng-repeat="i in songs[$index].genres track by $index">
+						{{songs[$parent.$index].genres[$index].name | capitalize}} 
+						<span ng-if="!($index == songs[$parent.$index].genres.length - 1)">| </span>
+					
+					<!-- Modal to edit a track-->
+					<div class="modal fade" id="edit" role="dialog" style="color: #000">
+						<div class="modal-dialog">
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title modalRedHeader">Edit Track</h4>
+								</div>
+								<div class="modal-body">
+									<div>
+										Title: <input type="text" class="form-control" ng-model="editableTrack.title" placeholder="Enter Title"/>
+									</div>
+									<div style="margin-top: 10px; display: inline-block;">
+										Genre: <br>	<span style="color:#008080;" ng-repeat="gen in editableTrack.genres">
+														{{gen.name | capitalize}} 
+													<span> 
+													<span style="color: #fff" ng-if="!($index == songs[$parent.$index].genres.length - 1)">| </span>
+									</div>
+									<div style="display: inline-block">
+										<input autofocus id="gIn" type="text" ng-model="newGenre.name" ng-if="newGenreFlag" 
+											style="width: 90px; height: 70%; display:inline-block; margin-left: 8px;" 
+											class="form-control"/>
+												
+										<i ng-if="!newGenreFlag" ng-click="provideGenreInput(songs[$parent.$index].genres[$index])" class="material-icons" 
+											style="cursor: pointer; margin-left: 10px; margin-top: -17px; position: absolute; color: #f08080">
+											add</i>
+									</div>	
+									<div style="margin-top: 10px;">
+										Rating: <input type="text" class="form-control" ng-model="editableTrack.rating" placeholder="Enter Rating"/>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" ng-click="editTrack()">Save Changes</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Modal ends -->
+					
+					
+					</div> ]
+					
+					
+					
+				</div>
+				<div class="songRating">
+					<span class="stars">{{s.rating}}</span>
+				</div>
+			
+			</div>
+		</div>
+		
+		<!-- add new track -->
+		<div class="add col-md-4">
+			<button class="btn addNew" data-toggle="modal" data-target="#addNew">Add New Track</button>
+		</div>
+		
+		<!-- Modal to add new track-->
+			<div class="modal fade" id="addNew" role="dialog" style="color: #000">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title modalRedHeader">Add New Track</h4>
+						</div>
+						<div class="modal-body">
+							Title: <input type="text" style="margin-bottom: 6px;" class="form-control" ng-model="newTrack.title" placeholder="Enter Title"/>
+							Genre: <input type="text" style="margin-bottom: 6px;" class="form-control" ng-model="newGenreAdd" placeholder="Enter Genre"/>
+							Rating: <input type="text" style="margin-bottom: 6px;" class="form-control" ng-model="newTrack.rating" placeholder="Enter Rating"/>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" ng-click="addTrack()">Add</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- Modal ends -->
+	
+	</div>
+	
+</div>

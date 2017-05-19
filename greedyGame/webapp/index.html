@@ -1,0 +1,61 @@
+<!doctype html>
+
+<style>
+
+body {
+
+	background: url('assets/images/background.jpg');
+	background-size: cover;
+	position: absolute;
+	background-attachment: fixed;
+	bottom: 0px;
+	right: 0px;
+	top: 0px;
+	left: 0px;
+	min-width: 300px;
+	color: #fff;
+	
+}
+
+input::-webkit-input-placeholder {
+
+	color: #ddd !important;
+	font-size: 18px;
+
+}
+
+input::-moz-placeholder { /* Firefox 18- */
+	
+	color: #ddd !important;  
+	font-size: 18px;
+
+}
+
+</style>
+
+<html ng-app="music">
+	<head>
+		<title>Assignment Greedy-Game</title>
+		
+		<!-- css -->
+		<link rel="stylesheet" href="assets/css/bootstrap.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		
+		<!-- js -->
+		<script src="assets/js/angular.js"></script>
+		<script src="assets/js/angular-resource.js"></script>
+		<script src="assets/js/jquery.js"></script>
+		<script src="assets/js/bootstrap.js"></script>
+		<script src="assets/js/ui-router.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/home.js"></script>
+		
+	</head>
+	
+	<body>
+		
+		<div ui-view></div>
+		
+	</body>
+	
+</html>

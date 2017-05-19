@@ -1,0 +1,32 @@
+1 view all music track details in list view
+2 add music track with details like title genere rating
+3 edit specific track
+4 add genre with its name
+5 can rename specific genre
+
+//list all genere
+http.get : http://104.197.128.152:8000/v1/genres
+
+//get single genre record
+http.get : http://104.197.128.152:8000/v1/genres/11
+
+//edit genre record
+http.post : http://104.197.128.152:8000/v1/genres/11
+
+//create new genre
+http.post : http://104.197.128.152:8000/v1/genres
+
+//list all tracks
+http.get : http://104.197.128.152:8000/v1/tracks
+
+//search tracks with title
+http.get : http://104.197.128.152:8000/v1/tracks?title=Hymn%20for%20the%20weekend
+
+//get single track record
+http.get : http://104.197.128.152:8000/v1/tracks/44
+
+//edit track record
+http.post : http://104.197.128.152:8000/v1/tracks/1
+
+//create new track
+http.post : http://104.197.128.152:8000/v1/tracks
